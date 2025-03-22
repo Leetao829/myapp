@@ -28,14 +28,45 @@ const getAccess = () => {
 
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 export default {
-  // 添加以下代码到现有的 user.ts 文件中，如果没有则创建
-  'GET /api/user/currentUser': (req: any, res: any) => {
-    res.json({
-      name: '张三',
-      // 可以添加其他模拟的用户信息
+  // 获取当前用户
+  'GET /api/user/currentUser': (req: Request, res: Response) => {
+  const token = req.get('Authorization');
+  if (!token || !token.includes('fake-token-123456')) {
+    res.status(401).send({
+      success: false,
+      errorCode: '401',
+      errorMessage: '请先登录！',
+    });
+    return;
+  }
+
+  res.send({
+    success: true,
+    data: {
+      name: '张三', // 确保包含必填字段
+      avatar: 'https://example.com/avatar.png',
+      access: 'admin',
+    },
+  });
+},
+  // 登录接口
+  'POST /api/user/login': (req: any, res: any) => {
+    const { username, password } = req.body;
+    if (username === 'admin' && password === '123456') {
+      res.send({
+        status: 'ok',
+        type: 'account',
+        currentAuthority: 'admin',
+        token: 'fake-token-123456',
+      });
+      return;
+    }
+    res.send({
+      status: 'error',
+      type: 'account',
+      currentAuthority: 'guest',
     });
   },
-
   // 支持值为 Object 和 Array
   'GET /api/currentUser': (req: Request, res: Response) => {
     if (!getAccess()) {

@@ -10,40 +10,30 @@ import { currentUser as queryCurrentUser } from '@/services/ant-design-pro/api';
 import React from 'react';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
+import { getCurrentUser, CurrentUser } from './services/user';
 
-/**
- * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
- * */
 export async function getInitialState(): Promise<{
-  settings?: Partial<LayoutSettings>;
-  currentUser?: API.CurrentUser;
+  currentUser?: CurrentUser;
+  settings?: any;
   loading?: boolean;
-  fetchUserInfo?: () => Promise<API.CurrentUser | undefined>;
 }> {
-  const fetchUserInfo = async () => {
+  // 如果不是登录页面，尝试获取用户信息
+  const currentLocation = window.location.pathname;
+  if (currentLocation !== '/user/login') {
     try {
-      const msg = await queryCurrentUser({
-        skipErrorHandler: true,
-      });
-      return msg.data;
+      const currentUser = await getCurrentUser();
+      return {
+        currentUser,
+        settings: {},
+      };
     } catch (error) {
-      history.push(loginPath);
+      console.error('获取用户信息失败:', error);
+      // 如果获取用户信息失败，重定向到登录页
+      history.push('/user/login');
     }
-    return undefined;
-  };
-  // 如果不是登录页面，执行
-  const { location } = history;
-  if (location.pathname !== loginPath) {
-    const currentUser = await fetchUserInfo();
-    return {
-      fetchUserInfo,
-      currentUser,
-      settings: defaultSettings as Partial<LayoutSettings>,
-    };
   }
   return {
-    fetchUserInfo,
-    settings: defaultSettings as Partial<LayoutSettings>,
+    settings: {},
   };
 }
 

@@ -15,7 +15,7 @@ const Workbench: React.FC = () => {
     const fetchUserInfo = async () => {
       try {
         const userInfo = await getCurrentUser();
-        setUsername(userInfo.name);
+        setUsername(userInfo?.name || '访客');
       } catch (error) {
         message.error('获取用户信息失败');
         setUsername('访客');
