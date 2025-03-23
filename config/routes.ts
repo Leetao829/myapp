@@ -81,6 +81,32 @@ export default [
             hideInMenu: true,
           },
           {
+            path: '/resource/apply/redis',
+            component: './Resource/Apply/Redis',
+            hideInMenu: true,
+            routes: [
+              {
+                path: '/resource/apply/redis',
+                redirect: '/resource/apply/redis/user',
+              },
+              {
+                path: '/resource/apply/redis/user',
+                component: './Resource/Apply/Redis/User',
+                hideInMenu: true,
+              },
+              {
+                path: '/resource/apply/redis/program',
+                component: './Resource/Apply/Redis/Program',
+                hideInMenu: true,
+              },
+              {
+                path: '/resource/apply/redis/newdb',
+                component: './Resource/Apply/Redis/NewDB',
+                hideInMenu: true,
+              },
+            ],
+          },
+          {
            // name: 'Elasticsearch资源',
             path: '/resource/apply/elasticsearch',
             component: './Resource/Apply/Elasticsearch',
