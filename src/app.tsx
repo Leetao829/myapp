@@ -11,7 +11,7 @@ import React from 'react';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 import { getCurrentUser, CurrentUser } from './services/user';
-
+import { CurrentTime } from '@/components';
 export async function getInitialState(): Promise<{
   currentUser?: CurrentUser;
   settings?: any;
@@ -40,7 +40,7 @@ export async function getInitialState(): Promise<{
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
-    actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
+    actionsRender: () => [<CurrentTime key="time" />, <Question key="doc" />, <SelectLang key="SelectLang" />],
     avatarProps: {
       src: initialState?.currentUser?.avatar,
       title: <AvatarName />,

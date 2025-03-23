@@ -54,7 +54,7 @@ const Workbench: React.FC = () => {
   };
 
   return (
-    <PageContainer>
+    <PageContainer title={false}>
       <Card
         style={{
           borderRadius: '8px',

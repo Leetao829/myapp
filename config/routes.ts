@@ -28,6 +28,79 @@ export default [
     icon: 'desktop',
     component: './Workbench',
   },
+  // 添加资源管理导航及子导航
+  {
+    path: '/resource',
+    name: '资源管理',
+    icon: 'database',
+    routes: [
+      {
+        path: '/resource/list',
+        name: '资源列表',
+        component: './Resource/List',
+      },
+      {
+        name: '资源申请',
+        path: '/resource/apply',
+        component: './Resource/Apply', // 资源申请页面
+        routes: [
+          {
+            path: '/resource/apply',
+            redirect: '/resource/apply/mysql',
+          },
+          {
+            path: '/resource/apply/mysql',
+            component: './Resource/Apply/MySQL',
+            hideInMenu: true,
+            routes: [
+              {
+                path: '/resource/apply/mysql',
+                redirect: '/resource/apply/mysql/user',
+              },
+              {
+                path: '/resource/apply/mysql/user',
+                component: './Resource/Apply/MySQL/User',
+                hideInMenu: true,
+              },
+              {
+                path: '/resource/apply/mysql/program',
+                component: './Resource/Apply/MySQL/Program',
+                hideInMenu: true,
+              },
+              {
+                path: '/resource/apply/mysql/special',
+                component: './Resource/Apply/MySQL/Special',
+                hideInMenu: true,
+              },
+              {
+                path: '/resource/apply/mysql/newdb',
+                component: './Resource/Apply/MySQL/NewDB',
+                hideInMenu: true,
+              },
+            ],
+          },
+          {
+           // name: 'Redis资源',
+            path: '/resource/apply/redis',
+            component: './Resource/Apply/Redis',
+            hideInMenu: true,
+          },
+          {
+           // name: 'Elasticsearch资源',
+            path: '/resource/apply/elasticsearch',
+            component: './Resource/Apply/Elasticsearch',
+            hideInMenu: true,
+          },
+          {
+           // name: '其他资源',
+            path: '/resource/apply/other',
+            component: './Resource/Apply/Other',
+            hideInMenu: true,
+          },
+        ],
+      },
+    ],
+  },
   {
     path: '/',
     redirect: '/user/login',  // 修改这里，重定向到登录页

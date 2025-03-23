@@ -8,5 +8,6 @@
 import Footer from './Footer';
 import { Question, SelectLang } from './RightContent';
 import { AvatarDropdown, AvatarName } from './RightContent/AvatarDropdown';
+export {default as CurrentTime} from './CurrentTime';
 
 export { Footer, Question, SelectLang, AvatarDropdown, AvatarName };
