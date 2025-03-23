@@ -10,7 +10,7 @@ const MySQLApply: React.FC = () => {
   const getSelectedKey = () => {
     if (currentPath.includes('/user')) return 'user';
     if (currentPath.includes('/program')) return 'program';
-    if (currentPath.includes('/special')) return 'special';
+    // 删除特殊访问判断
     if (currentPath.includes('/newdb')) return 'newdb';
     return 'user'; // 默认选中用户访问
   };
@@ -22,7 +22,7 @@ const MySQLApply: React.FC = () => {
     history.push(`/resource/apply/mysql/${e.key}`);
   };
   
-  // 如果直接访问/resource/apply/mysql，重定向到默认子路由
+  // 如果当前路径是/resource/apply/mysql，重定向到/resource/apply/mysql/user
   useEffect(() => {
     if (currentPath === '/resource/apply/mysql') {
       history.push('/resource/apply/mysql/user');
@@ -41,7 +41,7 @@ const MySQLApply: React.FC = () => {
           >
             <Menu.Item key="user">用户访问</Menu.Item>
             <Menu.Item key="program">程序访问</Menu.Item>
-            <Menu.Item key="special">特殊访问</Menu.Item>
+            {/* 删除特殊访问菜单项 */}
             <Menu.Item key="newdb">新建数据库</Menu.Item>
           </Menu>
         </Col>

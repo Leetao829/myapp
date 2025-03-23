@@ -68,11 +68,6 @@ export default [
                 hideInMenu: true,
               },
               {
-                path: '/resource/apply/mysql/special',
-                component: './Resource/Apply/MySQL/Special',
-                hideInMenu: true,
-              },
-              {
                 path: '/resource/apply/mysql/newdb',
                 component: './Resource/Apply/MySQL/NewDB',
                 hideInMenu: true,
